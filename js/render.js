@@ -1,3 +1,4 @@
+//participacion
 export const rParticipacionContent = `<div class="titulos col-xs-12">
                     <div class="col-xs-11">
                       <h3> <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true" style="font-size:19px"></span> SEGUNDA ELECCIÓN PRESIDENCIAL 2016: PARTICIPACIÓN CIUDADANA</h3>
@@ -185,3 +186,147 @@ export const rParticipacionVotos = (votos, detalle, total) => {
     return html;
 }
 
+//actas
+
+export const aTemplate = (grupo) => {
+  return `
+  <td bgcolor="#C1C1C1" style="cursor:pointer"><a href="#" id="rowVotes" data-id="${grupo.idGrupoVotacion}">${grupo.idGrupoVotacion}</a></td>
+  `
+}
+
+export const renderGrupoDetalle = (grupo, ubigeo) => {
+  return `
+                                    <div class="tab-info-desc">             
+                                      <div class="row">
+                                        <div class="col-xs-3 col-md-4">
+                                          <div class="mesap01">
+                                            <img src="images/mp-sin.jpg" class="img-responsive">
+                                            Si requiere la imagen del acta, solicítela a través del procedimiento de acceso a la información pública.
+                                          </div>
+                                        </div>
+                                        <div class="col-xs-9 col-md-8">
+                                          <div class="row">
+                                            
+                                            <div class="col-xs-12">
+                                              <p class="subtitle1">ACTA ELECTORAL</p>
+                                              <div id="page-wrap">
+                                                <table class="table13" cellspacing="0">
+                                                  <thead>
+                                                    <tr>
+                                                      <th>Mesa N°</th>
+                                                      <th>N° Copia</th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td>${grupo.idGrupoVotacion}</td>
+                                                      <td>${grupo.nCopia}</td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                
+                                            <div class="col-xs-12">
+                                              <p class="subtitle1">INFORMACIÓN UBIGEO</p>
+                                              <div id="page-wrap">
+                                                <table class="table14" cellspacing="0">
+                                                  <tbody>
+                                                    <tr class="titulo_tabla">
+                                                      <td>${ubigeo[0] == "nacional" ? "Departamento" : "Continente"}</td>
+                                                      <td>${ubigeo[0] == "nacional" ? "Provincia": "Pais"}</td>
+                                                      <td>${ubigeo[0] == "nacional" ? "Distrito": "Ciudad"}</td>
+                                                      <td>Local de votación</td>
+                                                      <td>Dirección</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>${ubigeo[1]}</td>
+                                                      <td>${ubigeo[2]}</td>
+                                                      <td>${ubigeo[3]}</td>
+                                                      <td>${"falta ingresar Local"}</td>
+                                                      <td>${"falta ingresar Dirección"}</td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                            
+                                            <div class="col-xs-12">
+                                              <p class="subtitle1">INFORMACIÓN MESA</p>
+                                              <div id="page-wrap">
+                                                <table class="table15" cellspacing="0">
+                                                  <tbody>
+                                                    <tr class="titulo_tabla">
+                                                      <td>Electores hábiles</td>
+                                                      <td>Total votantes</td>
+                                                      <td>Estado del acta</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>${grupo.ElectoresHabiles}</td>
+                                                      <td>${grupo.TotalVotantes}</td>
+                                                      <td>${grupo.idEstadoActa ? "ACTA ELECTORAL NORMAL" : "ACTA SIN PROCESAR"}</td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                
+                                      <div>
+                                        <div class="col-xs-12 pbot30_acta">
+                                          <p class="subtitle1">LISTA DE RESOLUCIONES</p>
+                                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> No hay resoluciones para el acta seleccionada
+                                          <div id="page-wrap">
+                                            <div class="col-md-12 resolu"></div>
+                                          </div>
+                                          <!-- <p class="centro"># : El valor consignado en el acta presenta ilegibilidad.</p> -->
+                                        </div>
+                                      </div>
+                                
+                                      <div>
+                                        <div class="col-xs-12">
+                                          <p class="subtitle1">INFORMACIÓN DEL ACTA ELECTORAL</p>
+                                          <div id="page-wrap" class="cont-tabla1">
+                                            <table class="table06">
+                                              <tbody>
+                                                <tr class="titulo_tabla">
+                                                  <td colspan="2">Organización política</td>
+                                                  <td>Total de Votos</td>
+                                                </tr>
+                                                  <td>PERUANOS POR EL KAMBIO</td>
+                                                  <td><img width="40px" height="40px" src="images/simbolo_keyko.jpg"></td>
+                                                  <td>${grupo.P1}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td>FUERZA POPULAR</td>
+                                                  <td><img width="40px" height="40px" src="images/simbolo_pkk.jpg"></td>
+                                                  <td>${grupo.P2}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="2">VOTOS EN BLANCO</td>
+                                                  <td>${grupo.VotosBlancos}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="2">VOTOS NULOS</td>
+                                                  <td>${grupo.VotosNulos}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="2">VOTOS IMPUGNADOS</td>
+                                                  <td>${grupo.VotosImpugnados}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="2">TOTAL DE  VOTOS EMITIDOS</td>
+                                                  <td>${grupo.TotalVotantes}</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+  `
+
+}

@@ -1,19 +1,6 @@
 import { db } from './conexion.js';
-import { getDocs, collection, where, query, orderBy } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { getDocs, getDoc, collection, where, query, orderBy, doc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-// export const getVotosNacionales = async () =>{
-//     const vNacionales = await getDocs(collection(db, "votosNacional"));
-//     return vNacionales.docs.map( votos => ({
-//         ...votos.data()
-//     }));
-// }
-
-// export const getVotosExtranjeros = async () => {
-//     const vExtranjeros = await getDocs(collection(db, "votosExtranjero"));
-//     return vExtranjeros.docs.map(votos => ({
-//         ...votos.data()
-//     }));
-// }
 
 export const getVotosDepartamento = async (id) => {
     const q = query(collection(db, "participacion_departamento")/*, orderBy("DPD","desc")*/ , where("ID", "==", id))
@@ -81,3 +68,48 @@ export const getTotal = (votos) => {
     return total;
 };
 
+export const getDepartamentos = async (id) =>{
+    const q = query(collection(db, "departamentos"), where("procedencia", "==", id))
+    const departamentos = await getDocs(q);
+    return departamentos.docs.map(departamento =>({
+        ...departamento.data()
+    }))
+}
+
+export const getProvincias = async (idDepartamento) => {
+    const q = query(collection(db, "provincias"), where("idDepartamento", "==", idDepartamento));
+    const provincias = await getDocs(q);
+    return provincias.docs.map(provincia => ({
+        ...provincia.data()
+    }));
+}
+
+export const getDistritos = async (idProvincia) => {
+    const q = query(collection(db, "distritos"), where("idProvincia", "==", idProvincia));
+    const distritos = await getDocs(q);
+    return distritos.docs.map(distrito => ({
+        ...distrito.data()
+    }))
+}
+
+export const getLocales = async (idDistrito) => {
+    const q = query(collection(db, "localvotacion"), where("idDistrito","==", idDistrito))
+    const locales = await getDocs(q);
+    return locales.docs.map(local => ({
+       ...local.data()
+    }))
+}
+
+export const getGrupos = async (idLocal) => {
+    const q = query(collection(db, "gruposvotacion"), where("idLocalVotacion", "==", idLocal))
+    const grupos = await getDocs(q);
+    return grupos.docs.map(grupo => ({
+        ...grupo.data()
+    }))
+}
+
+export const getGrupo = async (idGrupo) => {
+    const q = doc(db, "gruposvotacion", idGrupo);
+    const grupo = await getDoc(q);
+    return grupo.data();
+}
